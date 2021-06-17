@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView
 from .models import Flavour
 
 # Define the home view
@@ -15,3 +16,8 @@ def flavours_index(request):
 def flavours_detail(request, flavour_id):
   flavour = Flavour.objects.get(id=flavour_id)
   return render(request, 'flavours/detail.html', { 'flavour': flavour })
+
+class FlavourCreate(CreateView):
+  model = Flavour
+  fields = '__all__'
+  success_url = '/flavours/'
