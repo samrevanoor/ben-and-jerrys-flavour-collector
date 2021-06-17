@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Flavour
 
 # Define the home view
@@ -20,4 +20,12 @@ def flavours_detail(request, flavour_id):
 class FlavourCreate(CreateView):
   model = Flavour
   fields = '__all__'
+  success_url = '/flavours/'
+
+class FlavourUpdate(UpdateView):
+  model = Flavour
+  fields = '__all__'
+
+class FlavourDelete(DeleteView):
+  model = Flavour
   success_url = '/flavours/'

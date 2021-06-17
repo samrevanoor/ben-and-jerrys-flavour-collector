@@ -14,6 +14,10 @@
     <p>Not rated yet</p>
     {% endif %}
   </div>
+  <div class="card-action">
+    <a href="{% url 'flavours_update' flavour.id %}">Edit</a>
+    <a href="{% url 'flavours_delete' flavour.id %}">Delete</a>
+  </div>
 </div>
 
 {% endblock %}
