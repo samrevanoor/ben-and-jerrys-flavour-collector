@@ -1,22 +1,43 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <h1>Flavour Details</h1>
 
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">{{ flavour.name }}</span>
-    <p>Type: {{ flavour.type }}</p>
-    <p>Description: {{ flavour.description }}</p>
-    {% if flavour.rating >= 0 %}
-    <p>Rating: {{ flavour.rating }}</p>
-    {% else %}
-    <p>Not rated yet</p>
-    {% endif %}
+<div class="row">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ flavour.name }}</span>
+        <p>Type: {{ flavour.type }}</p>
+        <p>Description: {{ flavour.description }}</p>
+        {% if flavour.rating >= 0 %}
+        <p>Rating: {{ flavour.rating }}</p>
+        {% else %}
+        <p>Not rated yet</p>
+        {% endif %}
+      </div>
+      <div class="card-action">
+        <a href="{% url 'flavours_update' flavour.id %}">Edit</a>
+        <a href="{% url 'flavours_delete' flavour.id %}">Delete</a>
+      </div>
+    </div>
   </div>
-  <div class="card-action">
-    <a href="{% url 'flavours_update' flavour.id %}">Edit</a>
-    <a href="{% url 'flavours_delete' flavour.id %}">Delete</a>
+  <div class="col s6">
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Topping</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for recommendedtopping in flavour.recommendedtopping_set.all %}
+        <tr>
+          <td>{{recommendedtopping.quantity}}</td>
+          <td>{{recommendedtopping.get_topping_display}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 </div>
 

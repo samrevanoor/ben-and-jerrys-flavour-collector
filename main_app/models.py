@@ -32,5 +32,4 @@ class RecommendedTopping(models.Model):
     flavour = models.ForeignKey(Flavour, on_delete=models.CASCADE)
 
     def __str__(self):
-        # Nice method for obtaining the friendly value of a Field.choice
-        return f"{self.quantity} of {self.get_topping_display()}"
+        return f"{self.get_topping_display()}: {self.quantity}"
