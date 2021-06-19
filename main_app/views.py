@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from main_app.forms import RecommendedToppingForm
+from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Flavour
+from .forms import RecommendedToppingForm
 
 # Define the home view
 def home(request):
@@ -15,7 +17,10 @@ def flavours_index(request):
 
 def flavours_detail(request, flavour_id):
   flavour = Flavour.objects.get(id=flavour_id)
-  return render(request, 'flavours/detail.html', { 'flavour': flavour })
+  topping_form = RecommendedToppingForm()
+  return render(request, 'flavours/detail.html', { 
+    'flavour': flavour, 'topping_form': topping_form 
+    })
 
 class FlavourCreate(CreateView):
   model = Flavour
@@ -29,3 +34,11 @@ class FlavourUpdate(UpdateView):
 class FlavourDelete(DeleteView):
   model = Flavour
   success_url = '/flavours/'
+
+def add_topping(request, flavour_id):
+  form = RecommendedToppingForm(request.POST)
+  if form.is_valid():
+    new_topping = form.save(commit=False)
+    new_topping.flavour_id = flavour_id
+    new_topping.save()
+  return redirect('detail', flavour_id=flavour_id)

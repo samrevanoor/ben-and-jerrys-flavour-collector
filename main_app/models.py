@@ -33,3 +33,6 @@ class RecommendedTopping(models.Model):
 
     def __str__(self):
         return f"{self.get_topping_display()}: {self.quantity}"
+    
+    class Meta:
+        ordering = ['-id']

@@ -22,6 +22,11 @@
     </div>
   </div>
   <div class="col s6">
+    <form action="{% url 'add_topping' flavour.id %}" method="POST">
+      {% csrf_token %} {{ topping_form.as_p }}
+      <input type="submit" class="btn" value="Add Topping" />
+    </form>
+
     <table class="striped">
       <thead>
         <tr>
@@ -40,5 +45,8 @@
     </table>
   </div>
 </div>
-
+<script>
+  var selectEl = document.getElementById("id_topping");
+  M.FormSelect.init(selectEl);
+</script>
 {% endblock %}

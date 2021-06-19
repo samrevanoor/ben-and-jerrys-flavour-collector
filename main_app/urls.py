@@ -9,4 +9,5 @@ urlpatterns = [
     path('flavours/create/', views.FlavourCreate.as_view(), name='flavours_create'),
     path('flavours/<int:pk>/update/', views.FlavourUpdate.as_view(), name='flavours_update'),
     path('flavours/<int:pk>/delete/', views.FlavourDelete.as_view(), name='flavours_delete'),
+    path('flavours/<int:flavour_id>/add_topping', views.add_topping, name='add_topping'),
 ]
