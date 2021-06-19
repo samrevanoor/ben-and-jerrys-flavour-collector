@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 
 TOPPINGS = (
-    ('N', 'None')
+    ('N', 'no toppings!'),
     ('CSp', 'coloured sprinkles'),
     ('ChSp', 'chocolate sprinkles'),
     ('Ch', 'cherries'),
