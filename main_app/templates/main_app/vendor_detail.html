@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Vendor Details</h1>
+
+<div class="row">
+  <div class="col s6 col-offset-3">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ vendor.name }}</span>
+        <p>Address: {{ vendor.address }}</p>
+      </div>
+      <div class="card-action">
+        <a href="{% url 'vendors_update' vendor.id %}">Edit</a>
+        <a href="{% url 'vendors_delete' vendor.id %}">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

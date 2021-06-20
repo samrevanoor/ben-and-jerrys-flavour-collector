@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Vendor List</h1>
+
+{% for vendor in vendor_list %}
+  <a href="{% url 'vendors_detail' vendor.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ vendor.name }}</span>
+            <p>Address: {{ vendor.address }}</p>
+        </div>
+    </div>
+  </a>
+{% endfor %}
+
+{% endblock %}

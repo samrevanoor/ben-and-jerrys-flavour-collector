@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Flavour
+from django.views.generic import ListView, DetailView
+from .models import Flavour, Vendor
 from .forms import RecommendedToppingForm
 
 # Define the home view
@@ -41,3 +42,21 @@ def add_topping(request, flavour_id):
     new_topping.flavour_id = flavour_id
     new_topping.save()
   return redirect('detail', flavour_id=flavour_id)
+
+class VendorList(ListView):
+  model = Vendor
+
+class VendorDetail(DetailView):
+  model = Vendor
+
+class VendorCreate(CreateView):
+  model = Vendor
+  fields = '__all__'
+
+class VendorUpdate(UpdateView):
+  model = Vendor
+  fields = ['name', 'address']
+
+class VendorDelete(DeleteView):
+  model = Vendor
+  success_url = '/vendors/'
