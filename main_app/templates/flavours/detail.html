@@ -45,6 +45,48 @@
     </table>
   </div>
 </div>
+<hr />
+<div class="row">
+  <div class="col s6">
+    <h3>{{ flavour.name }}'s Vendors</h3>
+    {% if flavour.vendors.count %} {% for vendor in flavour.vendors.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">
+          <strong>{{ vendor.name }}</strong> at 
+          <span>{{ vendor.address }}</span>
+        </span>
+        <div class="card-action">
+            <a href="{% url 'unassoc_vendor' flavour.id vendor.id%}">Remove</a>
+          </div>
+      </div>
+    </div>
+    {% endfor %} {% else %}
+    <h5>No Vendors Yet</h5>
+    {% endif %}
+  </div>
+  <div class="col s6">
+    <h3>Available Toys</h3>
+    {% if vendors.count %} {% for vendor in vendors.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">
+            <strong>{{ vendor.name }}</strong> at 
+            <span>{{ vendor.address }}</span>        
+        </span>
+      </div>
+      <div class="card-action">
+        <form action="{% url 'assoc_vendor' flavour.id vendor.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn">Add</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %} {% else %}
+    <h5>{{flavour.name}} Already Available at All Vendors</h5>
+    {% endif %}
+  </div>
+</div>
 <script>
   var selectEl = document.getElementById("id_topping");
   M.FormSelect.init(selectEl);

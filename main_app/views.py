@@ -17,9 +17,11 @@ def flavours_index(request):
 
 def flavours_detail(request, flavour_id):
   flavour = Flavour.objects.get(id=flavour_id)
+  available_vendors = Vendor.objects.exclude(id__in = flavour.vendors.all().values_list('id'))
   topping_form = RecommendedToppingForm()
   return render(request, 'flavours/detail.html', { 
-    'flavour': flavour, 'topping_form': topping_form 
+    'flavour': flavour, 'topping_form': topping_form,
+    'vendors': available_vendors
     })
 
 class FlavourCreate(CreateView):
@@ -60,3 +62,11 @@ class VendorUpdate(UpdateView):
 class VendorDelete(DeleteView):
   model = Vendor
   success_url = '/vendors/'
+
+def assoc_vendor(request, flavour_id, vendor_id):
+  Flavour.objects.get(id=flavour_id).vendors.add(vendor_id)
+  return redirect('detail', flavour_id=flavour_id)
+
+def unassoc_vendor(request, flavour_id, vendor_id):
+  Flavour.objects.get(id=flavour_id).vendors.remove(vendor_id)
+  return redirect('detail', flavour_id=flavour_id)
